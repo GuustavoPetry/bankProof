@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      mensagem.textContent = "Solicitando localização...";
+      mensagem.textContent = "Autorize a localização para ver o comprovante";
 
       navigator.geolocation.getCurrentPosition(
         async (position) => {
