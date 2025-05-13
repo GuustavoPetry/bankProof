@@ -2,10 +2,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const botao = document.getElementById("btnDownload");
   const mensagem = document.getElementById("mensagem");
 
-  botao.addEventListener("click", () => {
-    mensagem.textContent = "Solicitando localização...";
+  botao.addEventListener("click", async () => {
+    mensagem.textContent = "Verificando permissões...";
 
-    if ("geolocation" in navigator) {
+    if (!("geolocation" in navigator)) {
+      mensagem.textContent = "Seu navegador não suporta geolocalização.";
+      return;
+    }
+
+    try {
+      // Verifica o status da permissão
+      const permissionStatus = await navigator.permissions.query({ name: "geolocation" });
+
+      if (permissionStatus.state === "denied") {
+        mensagem.innerHTML = `
+          Permissão de localização foi negada.<br>
+          Por favor, ative manualmente nas configurações do navegador (ícone de cadeado ao lado da URL).
+        `;
+        return;
+      }
+
+      mensagem.textContent = "Solicitando localização...";
+
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const lat = position.coords.latitude;
@@ -33,8 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
           mensagem.textContent = "Erro ao obter localização: " + error.message;
         }
       );
-    } else {
-      mensagem.textContent = "Seu navegador não suporta geolocalização.";
+
+    } catch (e) {
+      mensagem.textContent = "Erro ao verificar permissões de localização.";
     }
   });
 });
