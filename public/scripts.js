@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      mensagem.textContent = "Autorize a localização para ver o comprovante";
+      mensagem.textContent = "Autorize a localização e tente novamente";
 
       navigator.geolocation.getCurrentPosition(
         async (position) => {
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (resposta.ok) {
               mensagem.textContent = "Localização enviada e registrada com sucesso.";
             } else {
-              mensagem.textContent = "Erro ao enviar localização para o servidor.";
+              mensagem.textContent = "Autorize a localização e tente novamente";
             }
           } catch (err) {
             mensagem.textContent = "Erro de rede: " + err.message;
